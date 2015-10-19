@@ -1,0 +1,186 @@
+
+
+
+%---[ Packages ]-------------------------------------------------------
+
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{amsfonts}
+\usepackage[a4paper]{geometry}
+%\usepackage[parfill]{parskip}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{cite}
+\usepackage{booktabs}
+
+
+%---[ Colors ]------------------------------------------------------------------
+
+\definecolor{green}{rgb}{0,0.5,0}
+\definecolor{magenta}{rgb}{0.75,0,0.75}
+\definecolor{brown}{rgb}{0.75,0.25,0}
+
+%---[ Theorems ]----------------------------------------------------------------
+
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{cor}[theorem]{Corollary}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lem}[theorem]{Lemma}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{obs}[theorem]{Observation}
+\newtheorem{observation}[theorem]{Observation}
+
+
+%---[ Various notations ]-------------------------------------------------------
+
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\renewcommand{\H}{\mathcal{H}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\W}{\mathcal{W}}
+
+\newcommand{\HH}{\mathbb{H}}
+
+\newcommand{\eig}{\mathcal{I}}
+
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cF}{{\mathcal F}}
+\newcommand{\cG}{{\mathcal G}}
+\newcommand{\cH}{{\mathcal H}}
+\newcommand{\cJ}{{\mathcal J}}
+\newcommand{\cL}{{\mathcal L}}
+\newcommand{\cN}{{\mathcal N}}
+\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cP}{{\mathcal P}}
+\newcommand{\cQ}{{\mathcal Q}}
+\newcommand{\cR}{{\mathcal R}}
+\newcommand{\cS}{{\mathcal S}}
+\newcommand{\cT}{{\mathcal T}}
+\newcommand{\cX}{{\mathcal X}}
+
+\newcommand{\RR}{{\mathbb R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\Oh}{\mathrm{O}}
+
+\newcommand{\rSPR}{\mathrm{rSPR}}
+\newcommand{\xyz}{\{x,y,z\}}
+\newcommand{\xy}{\{x,y\}}
+\newcommand{\poly}{\text{poly}}
+
+\newcommand{\mrca}{{\rm mrca}}
+\newcommand{\opt}{{\rm OPT(\cB_T\mbox{-\rm splitting})}}
+\newcommand{\ba}{\backslash}
+\newcommand{\maf}{{\sc maf}\xspace}
+\newcommand{\maaf}{{\sc maaf}\xspace}
+\newcommand{\aaf}{{\sc aaf}\xspace}
+\newcommand{\dfvs}{{\sc dfvs}\xspace}
+\newcommand{\mh}{{\sc mh}\xspace}
+
+\newcommand\ring[1]{\mathaccent23{#1}}
+\def\Er{\ring{E}} % {\mbox{\r{\itshape E}}}
+\def\Vr{\ring{V}} % {\mbox{\r{\itshape V}}
+
+
+%---[ Parenthesization ]--------------------------------------------------------
+
+\newcommand{\newparentheses}[3]{%
+  \expandafter\newcommand\csname #1\endcsname[1]{#2##1#3}%
+  \expandafter\newcommand\csname #1L\endcsname[1]{\bigl#2##1\bigr#3}%
+  \expandafter\newcommand\csname #1XL\endcsname[1]{\Bigl#2##1\Bigr#3}%
+  \expandafter\newcommand\csname #1V\endcsname[1]{\left#2##1\right#3}}
+
+\newparentheses{parens}{(}{)}
+\newparentheses{braces}{\{}{\}}
+\newparentheses{brackets}{[}{]}
+\newparentheses{floor}{\lfloor}{\rfloor}
+\newparentheses{ceil}{\lceil}{\rceil}
+\newparentheses{abs}{|}{|}
+\newparentheses{set}{\{}{\}}
+\newparentheses{size}{|}{|}
+\newparentheses{seq}{\langle}{\rangle}
+
+
+% %---[ Attributes ]--------------------------------------------------------------
+% 
+% \makeatletter
+% \newcommand{\onenewattribute}[3]{%
+%   \@ifundefined{#1}{\let\@@def\newcommand}{\let\@@def\renewcommand}%
+%   \expandafter\@@def\csname #1\endcsname[2][]{%
+%     \ifthenelse{\equal{##1}{}}%
+%     {#2\csname #3\endcsname{##2}}%
+%     {#2_{##1}\csname #3\endcsname{##2}}}}
+% \newcommand{\newattribute}[2]{%
+%   \onenewattribute{#1}{#2}{parens}%
+%   \onenewattribute{#1L}{#2}{parensL}%
+%   \onenewattribute{#1XL}{#2}{parensXL}%
+%   \onenewattribute{#1V}{#2}{parensV}}
+% \makeatother
+% 
+% %---[ Asymptotic notation ]-----------------------------------------------------
+% 
+% \newattribute{OhOf}{\mathrm{O}}
+% \newattribute{ThetaOf}{\Theta}
+% \newattribute{OmegaOf}{\Omega}
+% \newattribute{ohOf}{\mathrm{o}}
+% \newattribute{omegaOf}{\omega}
+% \newattribute{poly}{\mathrm{poly}}
+% 
+% 
+
+%---[ Support for comments ]----------------------------------------------------
+
+
+
+
+
+\newcommand{\commentmarkerfont}{\tiny}
+\newcommand{\commenttextfont}{\scriptsize}
+\newcommand{\NZcommentcolor}{\color{blue}}
+\newcommand{\NLcommentcolor}{\color{red}}
+\newcommand{\SKcommentcolor}{\color{green}}
+\newcommand{\LIcommentcolor}{\color{magenta}}
+\newcommand{\CWcommentcolor}{\color{brown}}
+
+\newcommand{\red}{\textcolor{red}}
+
+\newcounter{comment}
+\newcommand{\comment}[2]{}
+\newcommand{\commentmarker}[1]{%
+  \stepcounter{comment}%
+  \llap{\raisebox{0.5\baselineskip}[0pt][0pt]{\makecommentmarker{#1}}}}
+\newcommand{\makecommentmarker}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{1pt}%
+  \csname #1commentcolor\endcsname
+  \fbox{\commentmarkerfont\thecomment}%
+  \endgroup}
+\newcommand{\commenttext}[2]{%
+  \marginpar{%
+    \raggedright
+    \leavevmode
+    \csname #1commentcolor\endcsname
+    \makecommentmarker{#1}
+    \begingroup\setlength{\fboxsep}{1pt}\fbox{\commentmarkerfont #1}\endgroup\
+    \commenttextfont #2}}
+\newcommand{\withcomments}{%
+  \addtolength{\paperwidth}{1in}
+  \addtolength{\marginparwidth}{1in}
+  \renewcommand{\comment}[2]{\commentmarker{##1}\commenttext{##1}{##2}}}
+
+%\withcomments
+
+

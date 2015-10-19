@@ -1,0 +1,120 @@
+\documentclass{report}
+
+\input{mypreamble}
+
+\author{Nela Leki\'c}
+
+\title{\textsc{\huge Trees, agreement forests and treewidth}} %combinatorial algorithms for constructing phylogenetic networks
+
+\date{}
+
+\begin{document}
+
+\newgeometry{top=8cm}
+\maketitle
+\restoregeometry
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+
+\newpage
+
+\newgeometry{top=8cm}
+
+\begin{center}
+
+\vspace{4cm}
+{\Large \textsc{Trees, agreement forests and treewidth: combinatorial
+algorithms for constructing phylogenetic networks}}
+
+\vspace{3cm}
+PROEFSCHRIFT
+
+\vspace{3cm}
+ter verkrijging van de graad van doctor \\
+aan de Universiteit Maastricht, \\
+op gezag van de Rector Magnificus, \\
+Prof. dr. L.L.G. Soete, \\
+volgens het besluit van het College van Decanen, \\
+in het openbaar te verdedigen \\
+op dinsdag 1 december 2015
+
+
+
+\vspace{3cm}
+door \\ 
+Nela Leki\'c
+\end{center}
+
+
+\newpage
+
+
+\noindent \textbf{Promotoren: } \\
+\indent Prof. Dr. L. Stougie (Vrije Universiteit Amsterdam)\\
+\indent Prof. Dr. Ir. R. Peeters \\
+
+\noindent \textbf{Co-Promotor:} \\
+\indent Dr. S.M. Kelk \\
+
+\noindent \textbf{Beoordelingscommissie:} \\
+\indent Prof. Dr. C.P.M. van Hoesel \\
+\indent Prof. Dr. V. Moulton (University of East Anglia)\\
+\indent Dr. M.J.R. Bordewich (University of Durham) \\
+\indent Dr. L.J.J. van Iersel (Technical University Delft) \\
+\indent Dr. T. Vredeveld \\
+
+
+
+\vspace{8cm}
+
+This research has been funded by NWO.
+
+\restoregeometry
+
+
+
+\chapter*{Acknowledgement}
+
+\chapter*{Nederlandse samenvatting}
+
+\tableofcontents
+
+\chapter{Introduction} \label{ch:intro}
+\input{introduction.tex}
+
+\chapter{Cyclekiller...}\label{ch:1}
+\input{cyclekiller.tex}
+
+\chapter{...is a practical approximation algorithm} \label{ch:2}
+\input{practical_cyclekiller.tex}
+
+\chapter{...that can be generalized to nonbinary situations}\label{ch:3}
+\input{nonbinary_cyclekiller.tex}
+
+\chapter{...but not to instances with three trees}\label{ch:4}
+\input{three_trees.tex}
+
+\chapter{...and certainly not to the Compatibility problem on unrooted trees.}\label{ch:5}
+\input{treewidth.tex}
+
+\chapter{Conclusion}
+\input{conclusion.tex}
+
+
+
+\bibliographystyle{plain}
+\bibliography{../thesis.bib}
+
+
+\chapter*{List of publications}
+\input{publications.tex}
+
+
+\chapter*{Curriculum Vitae}
+\input{cv.tex}
+
+
+
+\end{document}

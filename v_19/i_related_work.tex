@@ -1,0 +1,53 @@
+
+
+There are many types of problems that arise in the area of phylogenetic networks, but they can all be summarized as having a goal of reconstructing a network from the available data. The variety of problems come (in part) from variety of different kinds of data. In this thesis we mainly look at the problem of constructing a phylogenetic network from trees, but there are also techniques which construct networks from clusters \cite{KelkScornavacca2011, elusiveness}, triplets \cite{kelklev2, simptrip}, quartets \cite{YGXW2014, GBP2012}, networks \cite{IerselMoulton2014, HuberMoulton2013, HIMW2014, 2014arXiv1411.6804H}, sequences \cite{jin2006maximum, JNST2007b, JNST2006a, ParkNakhleh2012b, FischerIKS15} and distances between those sequences \cite{francis2015tree, Willson2013}.
+
+
+
+A standard reference book on this topic is \cite{SemSte03}, in which the authors set the mathematical foundations for phylogenetics. A more recent text \cite{DreHub12} focuses on different ways of encoding phylogenetic networks and how they are related to each other. For a more practical flavour there is \cite{HRS2011}. For algorithms on ancestral recombination graphs see \cite{Gusfield2014}.
+
+
+
+
+
+
+
+%\textcolor{magenta}{MIN HYB: 2 BINARY TREES} \textcolor{blue}{ - Complexity, FPT alg}
+
+Most of the problems on constructing a network on available type of data are NP-complete. In this thesis we mainly focus on \mh. The ultimate goal for this problem is to develop algorithms that can cope with many input trees and nonbinary input trees~\cite{davidbook} and to take different causes of incongruence into account, see e.g. \cite{yu2013parsimonious}.  However, until recently most algorithmic research has focused on the simplest possible case: two input trees, both binary. Unfortunately even this version of the problem is NP-hard and APX-hard \cite{bordewich07a}.
+
+
+Fortunately the binary two-tree problem is fixed parameter tractable. In \cite{bordewich07b}, Bordewich and Semple proved that \mh for two rooted binary trees is FPT and gave an algorithm with running time $O((28k)^k + n^3)$. This result was established via kernelization - a common technique in parameterized complexity where one wants to prove that a kernel, bounded in size as a function of some parameter, can be found in polynomial time. The theoretical state of the art is an algorithm based on bounded-search with running time $\Oh(3.18^k n)$ \cite{whidden2013fixed} with~$n=|X|$ and $k$ the reticulation number. 
+
+A standard approach in the network literature is to look for algorithms parameterized by the number of reticulations of an optimal network. On this front, a variety of increasingly sophisticated algorithms have been developed \cite{bordewich2,bordewich07b,hybridnet,quantifyingreticulation,firststeps,whiddenFixed,whiddenWABI}. These show that for many practical instances of \mh the problem can be efficiently solved.
+
+
+In the nonbinary setting, \mh is of course NP-hard and APX-hard. While there do exist efficient FPT algorithms for the binary variant of the problem, the nonbinary variant of the problem has received comparatively little attention, although that too is FPT \cite{linzsemple2009,teresaFPT}. In both of these results, the practical applicability of the FPT algorithms is limited to instances of small or moderate size, for larger instances approximation algorithms are required. An example of an approach via kernalization is \cite{IerselKelk2014} where the authors give two algorithms for \mh on multiple nonbinary trees. 
+
+%\cite{vanIerselLinz} where van Iersel and Linz give a quadratic size kernel for \mh on multiple binary phylogenetic trees, while in 
+
+
+
+
+ 
+
+% \textcolor{magenta}{MAAF} \textcolor{blue}{}
+% 
+% 
+% The MAAF abstraction gives a useful static characterization of the two-tree hybridization number problem \cite{bordewich07a}. In particular, in the two-tree case the MAAF abstraction essentially allows us to bypass the problem of actually constructing the hybridization network: it can easily be constructed  in polynomial time from the components of the MAAF.  This abstraction, and related FPT results, also hold in the case of two \emph{non}binary trees, albeit with significant technical complications \cite{linzsemple2009,teresaFPT}. 
+% 
+% For computing all \maaf we have an algorithm from Chen and Wang given in  \cite{chen2012algorithms}.
+
+
+
+
+In the last chapter of this thesis we look at quite a different problem. There we are given unrooted trees, not always on the same set of taxa, and the questions is weather there exists a supertree that displays all the partial trees. When such a tree exists we say that the instance is compatible. Even though this is an NP hard problem, it is fixed parameter tractable \cite{BryLag06}. That result is purely theoretic and no practical FPT algorithm is known. There exists however a number of useful characterizations. 
+
+There is a well known characterization of compatibility of undirected multi-state characters \cite{Buneman1974205}, and many other authors have since found interesting characterizations in terms of chordal graphs \cite{gysel2012reducing, meacham1983, Semple2002169}. As a counterpart to Buneman's triangulation based characterization of undirected multi-state characters \cite{Buneman1974205}, Vakati and Fern\'andez-Baca \cite{vakati2011graph} gave a triangulation based characterization of the compatibility of unrooted phylogenetic trees in terms of the existence of a specific kind of triangulation in a structure known as the display graph. In \cite{VakBac13} the same authors characterize compatibility of unrooted trees as a chordal graph sandwich problem in a edge label intersection graph, while in \cite{GruHum08} authors define a quartet graph and give a characterization in terms of edge coloring.
+
+Similar work on unrooted trees, but then with a goal of constructing an unrooted network that contains the input trees rather than solving the compatibility problem, was done by Gambette, Berry and Paul. In \cite{GBP2012} for example they show how to adapt some of the well known results on constructing rooted network from triplets on constructing unrooted networks from quartets. In \cite{JRudi2014} the authors give a polynomial time algorithm but then with a restriction on the output: they construct level-1 networks from quartets. 
+
+Finally, building on the idea from \cite{BryLag06}, the authors in \cite{KelkIS15} show the power of monadic second order logic applied to phylogenetics. They observe that many (otherwise NP-hard to compute) measures of (dis)similarity of phylogenetic trees can be bounded and translated (via agreement forests) to a bounded display graph, which then leads to fixed parameter tractability. 
+
+
+

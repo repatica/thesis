@@ -1,0 +1,121 @@
+Suppose one day you meet a biologist you want to impress and she tells you all about her four favorite species of orchids that she has been studying for years. In order to figure out the ancestral relationships among them and draw a phylogenetic tree (a diagram biologists use to show these evolutionary relationships), she has been chasing them around the mountains, took many DNA samples, later sat behind her computer, aligned them, and did many other things biologists do to arrive to their phylogenetic trees. But no matter how much she tried to eliminate any errors on her side, she kept getting two different phylogenetic trees, both equally likely. Finally she started suspecting a hybridization event took place during the evolution of these four species. Now she simply doesn't know how to represent that in a single tree. 
+
+This is a valid scenario and it might happen to you any time. In this thesis we will try to help you impress a biologist of your choice. 
+
+So let's look at her trees ($T_1$ and $T_2$ in figure \ref{fig:toyex}). She marked her orchid species by black circles and labeled them $a,b,c,d$. The hypothetical ancestors she marked by black squares. One tree suggests that long time ago these orchids split into two lineages; from one later species $a$ and $b$ differentiated, and from the other, species $c$ and $d$. The second tree paints a very different picture of what happened. It suggests that species $a$ was the first one to split off from the common ancestor of all four of them. After that event, species $d$ split off. Finally $b$ and $c$ differentiated as well. 
+
+  %-----------------------------------------------------------------------------
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{../figs/ch1/toyex.png}
+    \caption{Two conflicting evolutionary histories for four species $a,b,c$ and $d$}
+    \label{fig:toyex}
+  \end{figure}
+  %-----------------------------------------------------------------------------
+
+As a computer scientist or a mathematician you understand that no tree can represent all these events at the same time. You will need something more general than a tree, a directed acyclic graph, which we will here often call a network. So you draw two networks ($N_1$ and $N_2$ in figure \ref{fig:toyex1}) on four species (which you keep calling leaves instead of flowers much to her dismay). You explain why $N_1$ contains both trees $T_1$ and $T_2$ (in figure \ref{fig:toyex2}) and that the same argument holds for $N_2$.  You interpret $N_1$ as follows: first species $a$ differentiated from the common ancestor of all four orchids. Then $d$ split off, after that $c$. Finally, ancestors of $a$ and $c$ exchanged their genetic material and formed a hybrid species $b$. This is why species $b$ seems genetically closest to $a$ in $T_1$ and to $c$ in $T_2$. A single tree simply cannot represent all that happened. Multiple trees or a network that summarizes them tell the full story. 
+
+You start interpreting $N_2$ when she interrupts you and says that it is unlikely $N_2$ happened according to Occam's razor, since it assumes more hybridization events than $N_1$ while explaining the same situation.
+
+  %-----------------------------------------------------------------------------
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{../figs/ch1/toyex2.png}
+    \caption{Two nontree-like (hypothetical) evolutionary histories, each of which contains both tree-like histories $T_1$ and $T_2$ at the same time.}
+    \label{fig:toyex1}
+  \end{figure}
+  
+    \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{../figs/ch1/toyex1.png}
+    \caption{How removing appropriate edges of $N_1$ leads to either $T_1$ or $T_2$.}
+    \label{fig:toyex2}
+  \end{figure}
+  %-----------------------------------------------------------------------------
+
+You know enough. You understand this is a combinatorial problem and you have a good idea of which parameter you need to minimize. You are interested in finding a network that contains all input trees and has a minimum number of hybridization events, or nodes with more than one incoming edge. 
+% a ``friendlier'' alternative
+%\textcolor{magenta}{A ``friendlier'' alternative for the above paragraph: Biologists have been able to piece together a great deal of information concerning the tree of life -- relying in particular in more recent time on the advent of even cheaper and faster DNA sequencing technologies. Even so, there remain many fascinating open problems concerning the tree of life and the evolutionary process underlying it, problems that often require sophisticated techniques from areas such as mathematics, computer science and statistics.}
+Solving this problem requires searching for an optimal network across a vast space of possible networks. Since there are only finitely many such networks, one might think it is plausible (for a computer) to consider every single network and pick the best one, according to some measure of best. This approach is called exhaustive search and the problem with it is in its dependency on the number of the species we are considering. The bigger the number of species in a tree, the bigger the space of possible networks (and thus bigger the amount of time we need to solve the problem). 
+In fact only a small increase in the size of the input trees leads to an exponentially big increase in the search space. The number of leaf-labeled rooted trees has been known since 1870 from classical work of Scr\"{o}der \cite{countingtrees}, while the number of leaf-labeled rooted networks was counted recently in \cite{countingdags}.
+
+
+Ideally, we are interested in algorithms that don't depend this much on the varying size of the input, in the same way that adding two very big numbers is not much harder than adding two small ones. The question is, is it even possible to find such an algorithm for combining two trees into a network? 
+
+Complexity theory is a branch of mathematics that gives us a framework for classifying algorithmic problems according to their computational hardness. It distinguishes between two big classes of problems that are believed (but not proven) to be different, P and NP. 
+
+
+
+
+{
+Officially these classes are defined with respect to decision problems, i.e. problems that are defined as a question about existence of a solution. A solution to such a problem is a correct ``yes'' or ``no'' statement. The class of ``easy'' or polynomially solvable problems, P, is a class of decision problems for which an efficient algorithm exists, i.e. one that runs in time that is bounded by some polynomial function of the size of an instance. We say that a decision problem is in class NP, class of nondeterministically polynomially solvable problems, if for a ``yes''-answer a certificate can be given that can be verified within a running time bounded by a polynomial function of the input size. The class of hardest problems, called NP-hard, contains decision problems that have an additional property: a solution of just one of these problems in polynomial time would imply solution of any other problem in NP in polynomial time. When a problem is both NP-hard and in NP we say that it is NP-complete. So problems in P are the easiest problems in NP, while the hardest problems in NP are NP-complete. 
+}
+
+{
+The toy problem we have just encountered was not formulated as a decision problem but an optimization problem \footnote{To be more precise, the toy problem as we initially defined it is a construction one because we asked for a \textit{network} with fewest reticulations, not just the minimum \textit{number} of reticulations. But for now lets concentrate on its optimization variant, because we are not discussing complexity of that particular problem, we simply want to introduce some definitions.}, i.e. it asks for an optimum solution (fewest hybridization events) out of many possible ones. But any optimization problem has a decision version. In our case, instead of asking for a rooted network that contains two input trees and has a minimum number of ``non-tree-like'' nodes (vertices of in-degree higher than 1), we could chose a constant $k$ and ask ``does there exist a network that contains two input trees and has at most $k$ non-tree-like nodes. These two formulations of the problem are equivalent because if we could solve the decision version in polynomial time, then we could (using binary search) solve the optimization version in polynomial time (and obviously if we could solve the optimization version in polynomial time we could solve the decision version in polynomial time as well).  
+
+
+Like many computational problems in life sciences or operations research, the problem of combining two trees into a network the way we described above, is NP-hard. The next question is of course what can be done to solve an NP-hard problem in practice. There are numerous standard approaches, but here we will encounter two of them: approximation and parameterized complexity. 
+
+
+
+%-----------------approximation-------------------------------
+Almost as soon as the concept of NP-hardness was introduced, people asked themselves if instead of finding an optimal solution to a minimization problem we can find, in polynomial time, a solution that is within a factor $(1+ \epsilon)$ of an optimum for some $\epsilon >0$ (or within a factor $(1 - \epsilon)$ if we are dealing with a maximization problem). Furthermore, we would like $(1+\epsilon)$, also called approximation ratio, to be some constant rather than a function that depends on the input size of the problem. In that case we say a problem is in APX, the class of NP-hard problems for which polynomial time approximation algorithm exists that can achieve a constant worst-case approximation ratio. 
+
+{
+Similarly to class NP we can define a class of APX-hard and APX-complete problems, which are seen as ``difficult'' approximation problems. If there is a polynomial-time algorithm to solve a problem to within \emph{every} multiplicative factor of the optimum other than 1, then the problem is said to have a polynomial-time approximation scheme (PTAS). A problem is said to be APX-hard if there is a PTAS reduction (a reduction that preserves the property that a problem has a PTAS) from every problem in APX to that problem, and to be APX-complete if the problem is APX-hard and also in APX. 
+}
+
+
+
+%-----------------parametrized--------------------------------
+Sometimes however, it is not desirable to have an approximation algorithm. As we already saw, if a biologist is looking for a network to explain what exactly happened in the evolution of a small number of species, then giving as a solution a network from figure \ref{fig:toyex1} on the right is unsatisfying, as it depicts a wrong picture of the reality if we stick to the principle of Occam's razor. In that case we want efficient exact algorithms and the key word here is parameterized complexity. 
+
+The idea is to design an algorithm for a hard problem that runs in polynomial time with respect to the size of the instance, but exponential in the value of some chosen parameter. %The point here is that we are looking for a parameter that somehow partitions the set of all input instances. 
+For example, such an algorithm can have time complexity $c^k poly(n)$, where $c$ is some constant, $n$ is the input size and $k$ is the value of a parameter of the given input. For a small $k$ this algorithm can be considered to be efficient. When such an algorithm exists, we say the problem is in FPT. See \cite{downey1999,niedermeier2006} for an introduction to fixed parameter tractability.
+
+
+For a book on complexity theory we refer a reader to \cite{Arora}. Throughout the thesis we will assume the reader to be familiar with (very) basic graph theory; for a reference to basic graph theory see \cite{diestel2000graph}. 
+
+
+\section{Definitions}
+  %------------------------------------------------------------------------------
+  \input{i_defs.tex} 
+  %------------------------------------------------------------------------------
+  
+\section{Related work}
+  %------------------------------------------------------------------------------
+  \input{i_related_work.tex}
+  %------------------------------------------------------------------------------
+
+  
+  
+\section{Structure of the thesis and contribution}
+
+We start with an approximability result in Chapter \ref{ch:1}. There we show that the problem \mh has a constant factor polynomial-time approximation if and only if the problem of computing a minimum-size feedback vertex set in a directed graph (\dfvs) has a constant factor polynomial-time approximation. Despite considerable attention from the combinatorial optimization community, it remains to this day unknown whether such an algorithm exists for \dfvs. The proof of this result leads to a new insight into where the hardness of the problem lies, and based on this we develop a practically efficient algorithm in Chapter \ref{ch:2} and give its generalization to biologically more relevant situations in Chapter~\ref{ch:3}. 
+
+Chapter \ref{ch:1} is based on the paper \textit{Cycle killer...qu'est-ce que c'est? On the comparative approximability of hybridization number and directed feedback vertex set}. It was written together with Steven Kelk, Leo van Iersel, Simone Linz, Celine Scornavacca and Leen Stougie in 2011. It is published in SIAM Journal on Discrete Mathematics. The follow-up paper written with Leo van Iersel, Steven Kelk and Celine Scornavacca, \textit{A practical approximation algorithm for solving massive instances of hybridization number for binary and nonbinary trees} was first presented at WABI conference in 2012 and later published in BMC Bioinformatics. This is given in Chapter~\ref{ch:2}.
+
+Chapter \ref{ch:3} is based on the third paper in the Cycle Killer series, \textit{Approximation algorithms for nonbinary agreement forests}, coauthored with Leo van Iersel, Steven Kelk and Leen Stougie, published in SIAM Journal on Discrete Mathematics. This paper (and the corresponding chapter) are a little bit more than just a generalization of the previous work to nonbinary trees. We also consider the nonbinary version of problem \maf and give two algorithms for it: an approximation and a parameterized exact algorithm.
+
+In Chapter \ref{ch:4} we consider the same problem, \mh, but now with three binary input trees. Considering three instead of two trees is challenging because the similarity with \maaf weakens and all algorithms for two trees relied on it. Furhermore, all previous algorithms for the multiple tree hybridization problem relied on a brute force search through all possible underlying network topologies, leading to (theoretically unpleasant) running times with towers of exponents (i.e. not $O(c^k poly(n))$ for any $c$). We improve that by giving a $O(c^k poly(n))$ running time. This chapter is based on paper currently under review, \textit{Hybridization Number on Three Trees}, written with Leo van Iersel, Steven Kelk, Chris Whidden and Norbert Zeh.
+
+Chapter \ref{ch:5} has quite a different flavor than the rest of the thesis. Though still phylogenetically motivated, we turn our attention to unrooted trees. Here the goal is to puzzle the partial unrooted trees together into a single tree that contains all the topologies of the partial trees. We build on work of Bryant and Lagergren \cite{BryLag06} and give a condition for when the partial trees do belong to a single larger tree. This work was done together with Alexandar Grigoriev and Steven Kelk and published in Journal of Graph Algorithms and Applications. It was also presented at AlCoB conference in 2014. 
+
+
+
+
+
+
+%Despite considerable attention from the combinatorial optimization community, it remains to this day unknown whether a constant factor polynomial-time approximation exists for DFVS. 
+
+%Our result thus places the (in)approximability of hybridization number in a much broader complexity context, and as a consequence we obtain that it inherits inapproximability results from the problem Vertex Cover. On the positive side, we use results from the DFVS literature to give an $\text{O}( \log r \log \log r)$ approximation for the hybridization number if $r$ is the correct value.
+
+%In the previous chapter we showed how, for the binary variant of \maaf, large instances \emph{can} however be very well approximated using a specific marriage of \maf and \dfvs solvers. This approach is exponential-time in the worst case but in practice is very fast and yields highly competitive approximation factors. 
+
+
+
+
+
+
+
